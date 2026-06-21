@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "package": "me.zipestudio.blockdithering.mixin",
+  "refmap": "${mod_id}.refmap.json",
+  "compatibilityLevel": "JAVA_${java}",
+  "mixins": [
+  ],
+  "client": [
+    "pipeline.RenderPipelineBuilderMixin",
+    "YACLSearchMixin",
+    "YACLSearchQueryMixin",
+    "render.GlDeviceMixin",
+    "render.LevelRendererMixin",
+    "render.BufferBuilderMixin",
+    "chunk.ChunkSectionsToRenderMixin",
+    "chunk.SectionCompilerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

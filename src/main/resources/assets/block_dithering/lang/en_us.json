@@ -1,0 +1,32 @@
+{
+	"modmenu.descriptionTranslation.${mod_id}": "${mod_description}",
+	"${mod_id}.modmenu.title": "§l${mod_name} Configuration",
+	"${mod_id}.modmenu.no_config_library_screen.message": "You need to install §6§lYet Another Config Lib [YACL]§f to open ${mod_name} Configuration Screen\n\n§a§lOpen §6§lYACL §a§lModrinth page?",
+
+	"${mod_id}.modmenu.category.general.name": "§lGeneral",
+	"${mod_id}.modmenu.category.whitelist.name": "§lWhitelist Blocks",
+	"${mod_id}.modmenu.category.blacklist.name": "§lBlacklist Blocks",
+
+	"${mod_id}.modmenu.group.main.name": "§lMain",
+	"${mod_id}.modmenu.group.main.description": "Main settings",
+	"${mod_id}.modmenu.group.dithering_options.name": "§lDithering",
+	"${mod_id}.modmenu.group.dithering_options.description": "Distance at which nearby blocks fade out via dithering",
+
+	"${mod_id}.modmenu.option.mod_enabled.name": "Mod Enabled",
+	"${mod_id}.modmenu.option.mod_enabled.description": "Something",
+
+	"${mod_id}.modmenu.option.dither_near_distance.name": "Near Distance",
+	"${mod_id}.modmenu.option.dither_near_distance.description": "Camera distance (blocks) at which a block is fully faded. Lower = fades closer to you.",
+	"${mod_id}.modmenu.option.dither_far_distance.name": "Far Distance",
+	"${mod_id}.modmenu.option.dither_far_distance.description": "Camera distance (blocks) past which a block is fully solid (vanilla look).",
+	"${mod_id}.modmenu.option.dither_pixel_size.name": "Pixel Size",
+	"${mod_id}.modmenu.option.dither_pixel_size.description": "Size of the dither dots in pixels. Higher = chunkier fade.",
+	"${mod_id}.modmenu.option.dither_min_visibility.name": "Minimum Visibility",
+	"${mod_id}.modmenu.option.dither_min_visibility.description": "Lowest visibility a block can fade to. 0 = can fully disappear.",
+
+	"${mod_id}.modmenu.option.dither_blocks_whitelist.name": "Whitelist",
+	"${mod_id}.modmenu.option.dither_blocks_whitelist.description": "Blocks that fade with dithering. Use a block id (minecraft:glass), a tag (#minecraft:leaves), or a wildcard over the id (minecraft:dead_*coral* or *coral*) for groups with no tag. Fully solid view-blocking blocks (stone, dirt, ...) are ignored to prevent X-ray. Applies immediately on save.",
+
+	"${mod_id}.modmenu.option.dither_blocks_blacklist.name": "Blacklist",
+	"${mod_id}.modmenu.option.dither_blocks_blacklist.description": "Blocks/tags/wildcards that are NEVER dithered, even if matched by the whitelist. Higher priority than the whitelist — e.g. add minecraft:ladder to exclude it from #minecraft:climbable. Same format: block id, #tag, or *wildcard*."
+}

@@ -1,0 +1,16 @@
+{
+	"required": false,
+	"package": "me.zipestudio.blockdithering.mixin.sodium",
+	"plugin": "me.zipestudio.blockdithering.compat.SodiumCompatPlugin",
+	"refmap": "${mod_id}.refmap.json",
+	"compatibilityLevel": "JAVA_${java}",
+	"mixins": [
+	],
+	"client": [
+		"SodiumBlockRendererMixin",
+		"SodiumShaderLoaderMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

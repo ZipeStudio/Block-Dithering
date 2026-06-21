@@ -1,0 +1,32 @@
+{
+	"modmenu.descriptionTranslation.${mod_id}": "Добавляет эффект прозрачности подобно бедрок изданию к выбранным блокам. Совместимо с любыми шейдерами и ресурспаками!",
+	"${mod_id}.modmenu.title": "§l Конфигурация ${mod_name}",
+	"${mod_id}.modmenu.no_config_library_screen.message": "Вам необходимо установить §6§lYet Another Config Lib [YACL]§f, чтобы открыть экран конфигурации ${mod_name}\n\n§a§lОткрыть страницу §6§lYACL §a§lна Modrinth?",
+
+	"${mod_id}.modmenu.category.general.name": "§lОсновное",
+	"${mod_id}.modmenu.category.whitelist.name": "§lБелый список блоков",
+	"${mod_id}.modmenu.category.blacklist.name": "§lЧёрный список блоков",
+
+	"${mod_id}.modmenu.group.main.name": "§lГлавное",
+	"${mod_id}.modmenu.group.main.description": "Главные настройки мода.",
+	"${mod_id}.modmenu.group.dithering_options.name": "§lДизеринг",
+	"${mod_id}.modmenu.group.dithering_options.description": "Расстояние, на котором ближайшие блоки растворяются через дизеринг.",
+
+	"${mod_id}.modmenu.option.mod_enabled.name": "Включить мод",
+	"${mod_id}.modmenu.option.mod_enabled.description": "Если включён, выбранные блоки растворяются через дизеринг вблизи камеры; если отключён — выглядят как обычно.",
+
+	"${mod_id}.modmenu.option.dither_near_distance.name": "Ближнее расстояние",
+	"${mod_id}.modmenu.option.dither_near_distance.description": "Расстояние до камеры (в блоках), на котором блок полностью растворяется. Меньше — растворяется ближе к вам.",
+	"${mod_id}.modmenu.option.dither_far_distance.name": "Дальнее расстояние",
+	"${mod_id}.modmenu.option.dither_far_distance.description": "Расстояние до камеры (в блоках), дальше которого блок полностью непрозрачен (ванильный вид).",
+	"${mod_id}.modmenu.option.dither_pixel_size.name": "Размер пикселей",
+	"${mod_id}.modmenu.option.dither_pixel_size.description": "Размер точек дизеринга в пикселях. Чем больше значение, тем крупнее узор растворения.",
+	"${mod_id}.modmenu.option.dither_min_visibility.name": "Минимальная видимость",
+	"${mod_id}.modmenu.option.dither_min_visibility.description": "Наименьшая видимость, до которой может раствориться блок. 0 — может исчезнуть полностью.",
+
+	"${mod_id}.modmenu.option.dither_blocks_whitelist.name": "Белый список",
+	"${mod_id}.modmenu.option.dither_blocks_whitelist.description": "Блоки, которые растворяются через дизеринг. Используйте id блока (minecraft:glass), тег (#minecraft:leaves) или шаблон по id (minecraft:dead_*coral* или *coral*) для групп без тега. Полностью непрозрачные блоки, перекрывающие обзор (камень, земля, ...), игнорируются для защиты от X-ray. Применяется сразу при сохранении.",
+
+	"${mod_id}.modmenu.option.dither_blocks_blacklist.name": "Чёрный список",
+	"${mod_id}.modmenu.option.dither_blocks_blacklist.description": "Блоки/теги/шаблоны, которые НИКОГДА не дизерятся, даже если попадают в белый список. Приоритет выше белого списка — например, добавьте minecraft:ladder, чтобы исключить её из #minecraft:climbable. Тот же формат: id блока, #тег или *шаблон*."
+}

@@ -1,0 +1,66 @@
+import net.lopymine.utils.MossyUtils
+
+plugins {
+	id "net.lopymine.mossy-plugin-core" version "$mossy_plugin_version"
+}
+
+mossyDependencies {
+	minecraft = stonecutter.current.project.substring(stonecutter.current.project.indexOf("-") + 1)
+	lombok = prop("base.lombok_version")
+
+	fabricApi = prop("build.fabric_api")
+	fabricLoader = prop("build.fabric_loader")
+
+	forge = prop("build.forge")
+
+	neoForge = prop("build.neoforge")
+	parchment = prop("build.parchment")
+
+	additional {
+		// TIP: Don't use modImplementation, use mossyImplementation and etc.
+		//override("mossyCompileOnly", "yacl")
+		//disable("yacl")
+
+		// Iris/Sodium are optional, compile-only dependencies: we compile their mixins against them but
+		// the mixins only apply when the mod is installed (gated by IrisCompatPlugin/SodiumCompatPlugin).
+		override("mossyCompileOnly", "iris")
+		override("mossyCompileOnly", "sodium")
+	}
+}
+
+mossyResources {
+	//expandFiles = ["file pattern"]
+	customProperty("mossylib_version", MossyUtils.substringBefore(prop("dep.mossylib"), "+"))
+}
+
+// NeoForge ships Sodium as a JarJar wrapper: its real classes are nested in a META-INF/jarjar/*-mod.jar,
+// so the plugin's compile-only sodium dependency exposes only bootstrap classes and the Sodium mixins
+// can't see net.caffeinemc.* . Extract the nested mod jar and add it to the compile classpath. Fabric
+// ships the classes directly, so this is needed on NeoForge only.
+if (!stonecutter.current.project.contains("fabric") && findProperty("dep.sodium") != null) {
+	dependencies {
+		compileOnly files(extractNestedSodiumJar("maven.modrinth:sodium:${prop("dep.sodium")}"))
+	}
+}
+
+File extractNestedSodiumJar(String coordinate) {
+	def cfg = configurations.detachedConfiguration(dependencies.create(coordinate))
+	cfg.transitive = false
+	File outerJar = cfg.singleFile
+	File outDir = layout.buildDirectory.dir("sodium-extracted").get().asFile
+	File innerJar = new File(outDir, "sodium-neoforge.jar")
+	if (!innerJar.exists()) {
+		outDir.mkdirs()
+		copy {
+			from zipTree(outerJar).matching { include "META-INF/jarjar/*-mod.jar" }
+			into outDir
+			eachFile { it.relativePath = new RelativePath(true, "sodium-neoforge.jar") }
+			includeEmptyDirs = false
+		}
+	}
+	return innerJar
+}
+
+String prop(String key) {
+	return findProperty(key).toString()
+}

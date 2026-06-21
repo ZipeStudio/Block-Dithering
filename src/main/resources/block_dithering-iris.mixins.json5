@@ -1,0 +1,17 @@
+{
+	"required": false,
+	"package": "me.zipestudio.blockdithering.mixin.iris",
+	"plugin": "me.zipestudio.blockdithering.compat.IrisCompatPlugin",
+	"refmap": "${mod_id}.refmap.json",
+	"compatibilityLevel": "JAVA_${java}",
+	"mixins": [
+	],
+	"client": [
+		"SodiumProgramsMixin",
+		"SodiumShaderDitherUniformsMixin",
+		"SodiumTerrainBlockIdMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
