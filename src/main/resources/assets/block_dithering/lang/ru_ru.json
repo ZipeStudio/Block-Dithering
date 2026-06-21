@@ -1,5 +1,5 @@
 {
-	"modmenu.descriptionTranslation.${mod_id}": "Добавляет эффект прозрачности подобно бедрок изданию к выбранным блокам. Совместимо с любыми шейдерами и ресурспаками!",
+	"modmenu.descriptionTranslation.${mod_id}": "Добавляет эффект прозрачности через дизеринг для блоков. Совместимо с любыми шейдерами и ресурспаками!",
 	"${mod_id}.modmenu.title": "§l Конфигурация ${mod_name}",
 	"${mod_id}.modmenu.no_config_library_screen.message": "Вам необходимо установить §6§lYet Another Config Lib [YACL]§f, чтобы открыть экран конфигурации ${mod_name}\n\n§a§lОткрыть страницу §6§lYACL §a§lна Modrinth?",
 
