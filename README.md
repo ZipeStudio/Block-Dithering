@@ -50,7 +50,8 @@
 ### Shaders Compatible
 Don't worry, this mod works with all shaders, including those from your resource packs or Iris shaders! You don't need to do anything — just enable them, and it will work.
 
-![shaders](https://github.com/ZipeStudio/block-dithering/blob/master/assets/shaders.gif?raw=true)
+<img src="https://github.com/ZipeStudio/block-dithering/blob/master/assets/shaders.gif?raw=true" width="100%" alt="shaders">
+
 ![resourcepacks](https://github.com/ZipeStudio/block-dithering/blob/master/assets/resourcepacks.png?raw=true)
 
 !["Configurable" Title](https://github.com/ZipeStudio/Vault/blob/main/design/mods/main/ZSconfigurable.png?raw=true)
