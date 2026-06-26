@@ -75,16 +75,16 @@ public class YACLConfigurationScreen {
 		return SimpleGroup.startBuilder("dithering_options").options(
 				SimpleOption.<Double>startBuilder("dither_pixel_size")
 						.withBinding(def.getPixelSize(), cur::getPixelSize, cur::setPixelSize, true)
-						.withController(1.0D, 8.0D, 1.0D),
+						.withController(0.0D, 32.0D, 0.1D),
 				SimpleOption.<Double>startBuilder("dither_min_visibility")
 						.withBinding(def.getMinVisibility(), cur::getMinVisibility, cur::setMinVisibility, true)
-						.withController(0.0D, 1.0D, 0.05D),
+						.withController(0.0D, 1.0D, 0.01D),
 				SimpleOption.<Double>startBuilder("dither_near_distance")
 				.withBinding(def.getNearDistance(), cur::getNearDistance, cur::setNearDistance, true)
-				.withController(-4.0D, 16.0D, 0.25D),
+				.withController(-4.0D, 16.0D, 0.1D),
 				SimpleOption.<Double>startBuilder("dither_far_distance")
 				.withBinding(def.getFarDistance(), cur::getFarDistance, cur::setFarDistance, true)
-				.withController(0.0D, 32.0D, 0.25D)
+				.withController(0.0D, 32.0D, 0.1D)
 
 		);
 	}

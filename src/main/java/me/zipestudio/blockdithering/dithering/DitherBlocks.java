@@ -8,12 +8,14 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 import me.zipestudio.blockdithering.config.LeafyConfig;
+import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.Shapes;
 
 public class DitherBlocks {
 
@@ -74,8 +76,10 @@ public class DitherBlocks {
 	}
 
 	private static boolean compute(BlockState state) {
-		if (state.isSolidRender() && !state.propagatesSkylightDown()) {
-			return false;
+		for (Direction dir : Direction.values()) {
+			if (state.getFaceOcclusionShape(dir) == Shapes.block()) {
+				return false;
+			}
 		}
 
 		LeafyConfig config = LeafyConfig.getInstance();
@@ -85,6 +89,7 @@ public class DitherBlocks {
 		if (BLACKLIST.matches(state)) {
 			return false;
 		}
+
 		return WHITELIST.matches(state);
 	}
 

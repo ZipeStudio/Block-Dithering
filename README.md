@@ -41,6 +41,7 @@
 ### Showcase
 ![showcase](https://github.com/ZipeStudio/block-dithering/blob/master/assets/showcase.png?raw=true)
 ![showcase vault](https://github.com/ZipeStudio/block-dithering/blob/master/assets/showcase_vault.png?raw=true)
+![showcase vanilla](https://github.com/ZipeStudio/block-dithering/blob/master/assets/showcase_vanilla.png?raw=true)
 
 !["Compatibility" Title](https://github.com/ZipeStudio/Vault/blob/main/design/mods/main/ZScompatible.png?raw=true)
 
