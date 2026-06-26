@@ -26,12 +26,12 @@ public class DitherBlocks {
 
 	public static List<String> defaultEntries() {
 		return new ArrayList<>(List.of(
-				"#c:bars",
 				"#c:flowers",
 				"#c:glass_panes",
 				"#c:glass_blocks",
-//				"#minecraft:chains",
-//				"#minecraft:fences",
+				"#c:bars",
+				"#minecraft:fences",
+				"#minecraft:chains",
 				"#minecraft:corals",
 				"#minecraft:saplings",
 				"#minecraft:climbable",
@@ -49,9 +49,8 @@ public class DitherBlocks {
 				"minecraft:weeping_vines",
 				"minecraft:sugar_cane",
 				"minecraft:scaffolding",
-//				"minecraft:honey_block",
-//				"minecraft:slime_block",
-//				"minecraft:powder_snow",
+				"minecraft:honey_block",
+				"minecraft:slime_block",
 				"minecraft:firefly_bush",
 				"minecraft:big_dripleaf",
 				"minecraft:small_dripleaf",
@@ -83,8 +82,8 @@ public class DitherBlocks {
 		}
 
 		LeafyConfig config = LeafyConfig.getInstance();
-		WHITELIST.ensure(config.getBlocksWhitelist());
-		BLACKLIST.ensure(config.getBlocksBlacklist());
+		WHITELIST.ensure(config.getActiveWhitelist());
+		BLACKLIST.ensure(config.getActiveBlacklist());
 
 		if (BLACKLIST.matches(state)) {
 			return false;

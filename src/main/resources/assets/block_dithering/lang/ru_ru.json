@@ -11,6 +11,15 @@
 	"${mod_id}.modmenu.group.main.description": "Главные настройки мода.",
 	"${mod_id}.modmenu.group.dithering_options.name": "§lДизеринг",
 	"${mod_id}.modmenu.group.dithering_options.description": "Расстояние, на котором ближайшие блоки растворяются через дизеринг.",
+	"${mod_id}.modmenu.group.presets.name": "§lПресеты",
+	"${mod_id}.modmenu.group.presets.description": "Переключить белый и чёрный списки на пресет. Каждый пресет хранит свои изменения.",
+
+	"${mod_id}.modmenu.option.preset_default.name": "По умолчанию",
+	"${mod_id}.modmenu.option.preset_default.description": "Рекомендуемый набор блоков.",
+	"${mod_id}.modmenu.option.preset_glass_ice.name": "Стекло и лёд",
+	"${mod_id}.modmenu.option.preset_glass_ice.description": "Только стеклянные блоки, стеклянные панели и лёд.",
+	"${mod_id}.modmenu.option.preset_custom.name": "Свой",
+	"${mod_id}.modmenu.option.preset_custom.description": "Изначально пустой — соберите свой набор. Ваши изменения сохраняются.",
 
 	"${mod_id}.modmenu.option.mod_enabled.name": "Включить мод",
 	"${mod_id}.modmenu.option.mod_enabled.description": "Если включён, выбранные блоки растворяются через дизеринг вблизи камеры; если отключён — выглядят как обычно.",

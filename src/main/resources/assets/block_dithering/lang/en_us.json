@@ -11,6 +11,15 @@
 	"${mod_id}.modmenu.group.main.description": "Main settings",
 	"${mod_id}.modmenu.group.dithering_options.name": "§lDithering",
 	"${mod_id}.modmenu.group.dithering_options.description": "Distance at which nearby blocks fade out via dithering",
+	"${mod_id}.modmenu.group.presets.name": "§lPresets",
+	"${mod_id}.modmenu.group.presets.description": "Switch the whitelist and blacklist to a preset. Each preset keeps its own edits.",
+
+	"${mod_id}.modmenu.option.preset_default.name": "Default",
+	"${mod_id}.modmenu.option.preset_default.description": "The recommended selection of blocks.",
+	"${mod_id}.modmenu.option.preset_glass_ice.name": "Glass & Ice",
+	"${mod_id}.modmenu.option.preset_glass_ice.description": "Only glass blocks, glass panes and ice.",
+	"${mod_id}.modmenu.option.preset_custom.name": "Custom",
+	"${mod_id}.modmenu.option.preset_custom.description": "Starts empty so you can build your own selection. Your edits are kept.",
 
 	"${mod_id}.modmenu.option.mod_enabled.name": "Mod Enabled",
 	"${mod_id}.modmenu.option.mod_enabled.description": "Something",
