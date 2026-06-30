@@ -36,7 +36,8 @@
 
 !["Description" Title](https://github.com/ZipeStudio/Vault/blob/main/design/mods/main/ZSdescription.png?raw=true)
 
-**Block Dithering** — adds a dithered transparency effect to blocks that get in your way, fading them out as you get close so they stop blocking your view, while still looking exactly like vanilla from a distance.
+**Block Dithering** — adds a dithered transparency effect to blocks that get in your way, fading them out as you get close so they stop blocking your view, while still looking exactly like vanilla from a distance.<br>
+**Compatible with any shaders and resource packs! ✨**
 
 ### Showcase
 ![showcase](https://github.com/ZipeStudio/block-dithering/blob/master/assets/showcase.png?raw=true)
