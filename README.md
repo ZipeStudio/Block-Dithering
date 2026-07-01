@@ -44,6 +44,8 @@
 ![showcase vault](https://github.com/ZipeStudio/block-dithering/blob/master/assets/showcase_vault.png?raw=true)
 ![showcase vanilla](https://github.com/ZipeStudio/block-dithering/blob/master/assets/showcase_vanilla.png?raw=true)
 
+<iframe width="854" height="480" src="https://www.youtube.com/embed/TkUQwcnswHw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 !["Compatibility" Title](https://github.com/ZipeStudio/Vault/blob/main/design/mods/main/ZScompatible.png?raw=true)
 
 - Works in vanilla rendering and with **Sodium** & **Iris**
