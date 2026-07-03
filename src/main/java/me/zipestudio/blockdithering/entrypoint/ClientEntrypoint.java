@@ -2,7 +2,7 @@ package me.zipestudio.blockdithering.entrypoint;
 
 //? if fabric {
 
-/*import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.ClientModInitializer;
 
 import me.zipestudio.blockdithering.client.BlockDitheringClient;
 
@@ -14,9 +14,9 @@ public class ClientEntrypoint implements ClientModInitializer {
 	}
 }
 
-*///?} elif neoforge {
+//?} elif neoforge {
 
-import me.zipestudio.blockdithering.BlockDithering;
+/*import me.zipestudio.blockdithering.BlockDithering;
 import me.zipestudio.blockdithering.client.BlockDitheringClient;
 import me.zipestudio.blockdithering.modmenu.ModMenuIntegration;
 import net.neoforged.api.distmarker.Dist;
@@ -34,4 +34,4 @@ public class ClientEntrypoint {
 
 }
 
-//?}
+*///?}

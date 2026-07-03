@@ -1,11 +1,18 @@
 package me.zipestudio.blockdithering.mixin.sodium;
 
+
+//? if >=26.1 {
+/*import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+*///?} else {
+import net.minecraft.client.renderer.block.model.BlockStateModel;
+//?}
+
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.BlockRenderer;
 import me.zipestudio.blockdithering.dithering.DitherBlocks;
 import me.zipestudio.blockdithering.dithering.DitherVanillaPatcher;
-import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;

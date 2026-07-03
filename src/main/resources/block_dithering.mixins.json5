@@ -6,9 +6,9 @@
   "mixins": [
   ],
   "client": [
-    "pipeline.RenderPipelineBuilderMixin",
     "YACLSearchMixin",
     "YACLSearchQueryMixin",
+    "pipeline.RenderPipelineBuilderMixin",
     "render.GlDeviceMixin",
     "render.LevelRendererMixin",
     "render.BufferBuilderMixin",

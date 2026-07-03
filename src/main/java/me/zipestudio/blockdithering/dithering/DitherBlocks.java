@@ -15,7 +15,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class DitherBlocks {
 
@@ -75,8 +75,9 @@ public class DitherBlocks {
 	}
 
 	private static boolean compute(BlockState state) {
+		VoxelShape occlusion = state.getOcclusionShape();
 		for (Direction dir : Direction.values()) {
-			if (state.getFaceOcclusionShape(dir) == Shapes.block()) {
+			if (Block.isFaceFull(occlusion, dir)) {
 				return false;
 			}
 		}

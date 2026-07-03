@@ -1,7 +1,6 @@
-v1.0.1:
+v1.0.2:
 ### Changes
-- Reworked config sliders: finer steps and adjusted ranges for more precise control
-- Added config presets for quick block-list switching (Default, Glass & Ice, Custom)
-- Removed a few blocks from the default list that didn't fit well (you can still add them back manually)
+- Backported to 1.21.11
 ### Fixes
-- Blocks that hide a neighbor's face no longer dither (anti-x-ray)
+- Adjusted the block filter to be more accurate
+- Fixed a config bug where changed values could overwrite the real defaults

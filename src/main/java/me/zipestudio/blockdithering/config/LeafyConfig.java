@@ -19,6 +19,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 
 import static net.lopymine.mossylib.utils.CodecUtils.option;
 
@@ -30,7 +31,7 @@ public class LeafyConfig {
 	public static final Codec<LeafyConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			option("config_version", 0, Codec.INT, LeafyConfig::getConfigVersion),
 			option("mod_enabled", true, Codec.BOOL, LeafyConfig::isModEnabled),
-			option("dithering_options", DitheringDataConfig.defaults(), DitheringDataConfig.CODEC, LeafyConfig::getDitheringOptions),
+			option("dithering_options", (Supplier<DitheringDataConfig>) DitheringDataConfig::defaults, DitheringDataConfig.CODEC, LeafyConfig::getDitheringOptions),
 			option("active_preset", DitherPresets.DEFAULT_ID, Codec.STRING, LeafyConfig::getActivePreset),
 			option("presets", DitherPresets.defaultMap(), Codec.unboundedMap(Codec.STRING, PresetData.CODEC), LeafyConfig::getPresets),
 			option("dither_blocks_whitelist", List.of(), Codec.STRING.listOf(), LeafyConfig::getLegacyWhitelist),
