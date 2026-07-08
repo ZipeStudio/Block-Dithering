@@ -26,17 +26,17 @@ public class DitherBlocks {
 
 	public static List<String> defaultEntries() {
 		return new ArrayList<>(List.of(
-				"#c:flowers",
-				"#c:glass_panes",
-				"#c:glass_blocks",
-				"#c:bars",
+				"minecraft:*glass*",
+				"minecraft:*bars*",
+				"#minecraft:flowers",
 				"#minecraft:fences",
 				"#minecraft:chains",
 				"#minecraft:corals",
+				"#minecraft:wall_corals",
+				"minecraft:dead_*coral*",
 				"#minecraft:saplings",
 				"#minecraft:climbable",
 				"#minecraft:replaceable",
-				"minecraft:dead_*coral*",
 				"minecraft:*copper_grate*",
 				"minecraft:ice",
 				"minecraft:cobweb",
@@ -62,7 +62,9 @@ public class DitherBlocks {
 	}
 
 	public static List<String> defaultBlacklist() {
-		return new ArrayList<>();
+		return new ArrayList<>(List.of(
+				"minecraft:flowering_azalea_leaves"
+		));
 	}
 
 	private static final Map<BlockState, Boolean> CACHE = new ConcurrentHashMap<>();
