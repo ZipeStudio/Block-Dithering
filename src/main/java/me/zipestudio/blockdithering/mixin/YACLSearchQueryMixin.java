@@ -14,7 +14,7 @@ public class YACLSearchQueryMixin {
 
     @Inject(method = "updateSearchQuery", at = @At("HEAD"))
     private void captureSearchQuery(String query, CallbackInfo ci) {
-        if (!(Minecraft.getInstance().screen instanceof LeafyYaclScreen)) return;
+        if (!YACLSearchState.isLeafyScreen()) return;
         YACLSearchState.setQuery(query);
     }
 

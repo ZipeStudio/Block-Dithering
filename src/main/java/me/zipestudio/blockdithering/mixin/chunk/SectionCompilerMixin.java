@@ -12,31 +12,31 @@ import org.spongepowered.asm.mixin.injection.At;
 import java.util.List;
 
 //? if >=26.1 {
-/*import net.minecraft.client.renderer.block.BlockAndTintGetter;
+import net.minecraft.client.renderer.block.BlockAndTintGetter;
 import net.minecraft.client.renderer.block.BlockQuadOutput;
 import net.minecraft.client.renderer.block.ModelBlockRenderer;
 import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
-*///?} else {
-import com.mojang.blaze3d.vertex.PoseStack;
+//?} else {
+/*import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.world.level.BlockAndTintGetter;
 //? if fabric {
 import com.mojang.blaze3d.vertex.VertexConsumer;
 //?} elif neoforge {
-/*import java.util.function.Function;
+/^import java.util.function.Function;
+^///?}
 *///?}
-//?}
 
 @Mixin(SectionCompiler.class)
 public class SectionCompilerMixin {
 
 	//? if >=26.1 {
-	/*@WrapOperation(
+	@WrapOperation(
 			//? if fabric {
 			method = "compile",
 			//?} elif neoforge {
-			/^method = "compile(Lnet/minecraft/core/SectionPos;Lnet/minecraft/client/renderer/chunk/RenderSectionRegion;Lcom/mojang/blaze3d/vertex/VertexSorting;Lnet/minecraft/client/renderer/SectionBufferBuilderPack;Ljava/util/List;)Lnet/minecraft/client/renderer/chunk/SectionCompiler$Results;",
-			^///?}
+			/*method = "compile(Lnet/minecraft/core/SectionPos;Lnet/minecraft/client/renderer/chunk/RenderSectionRegion;Lcom/mojang/blaze3d/vertex/VertexSorting;Lnet/minecraft/client/renderer/SectionBufferBuilderPack;Ljava/util/List;)Lnet/minecraft/client/renderer/chunk/SectionCompiler$Results;",
+			*///?}
 			at = @At(
 					value = "INVOKE",
 					target = "Lnet/minecraft/client/renderer/block/ModelBlockRenderer;tesselateBlock(Lnet/minecraft/client/renderer/block/BlockQuadOutput;FFFLnet/minecraft/client/renderer/block/BlockAndTintGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/client/renderer/block/dispatch/BlockStateModel;J)V"
@@ -57,20 +57,20 @@ public class SectionCompilerMixin {
 			}
 		}
 	}
-	*///?} else {
-	@WrapOperation(
+	//?} else {
+	/*@WrapOperation(
 			//? if fabric {
 			method = "compile",
 			//?} elif neoforge {
-			/*method = "compile(Lnet/minecraft/core/SectionPos;Lnet/minecraft/client/renderer/chunk/RenderSectionRegion;Lcom/mojang/blaze3d/vertex/VertexSorting;Lnet/minecraft/client/renderer/SectionBufferBuilderPack;Ljava/util/List;)Lnet/minecraft/client/renderer/chunk/SectionCompiler$Results;",
-			*///?}
+			/^method = "compile(Lnet/minecraft/core/SectionPos;Lnet/minecraft/client/renderer/chunk/RenderSectionRegion;Lcom/mojang/blaze3d/vertex/VertexSorting;Lnet/minecraft/client/renderer/SectionBufferBuilderPack;Ljava/util/List;)Lnet/minecraft/client/renderer/chunk/SectionCompiler$Results;",
+			^///?}
 			at = @At(
 					value = "INVOKE",
 					//? if fabric {
 					target = "Lnet/minecraft/client/renderer/block/BlockRenderDispatcher;renderBatched(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/BlockAndTintGetter;Lcom/mojang/blaze3d/vertex/PoseStack;Lcom/mojang/blaze3d/vertex/VertexConsumer;ZLjava/util/List;)V"
 					//?} elif neoforge {
-					/*target = "Lnet/minecraft/client/renderer/block/BlockRenderDispatcher;renderBatched(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/BlockAndTintGetter;Lcom/mojang/blaze3d/vertex/PoseStack;Ljava/util/function/Function;ZLjava/util/List;)V"
-					*///?}
+					/^target = "Lnet/minecraft/client/renderer/block/BlockRenderDispatcher;renderBatched(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/BlockAndTintGetter;Lcom/mojang/blaze3d/vertex/PoseStack;Ljava/util/function/Function;ZLjava/util/List;)V"
+					^///?}
 			)
 	)
 	private void blockdithering$markTargetBlock(BlockRenderDispatcher dispatcher, BlockState blockState, BlockPos pos,
@@ -78,8 +78,8 @@ public class SectionCompilerMixin {
 			//? if fabric {
 			VertexConsumer bufferLookup,
 			//?} elif neoforge {
-			/*Function bufferLookup,
-			*///?}
+			/^Function bufferLookup,
+			^///?}
 			boolean checkSides, List parts,
 			Operation<Void> original) {
 		boolean target = DitherBlocks.isTarget(blockState);
@@ -94,6 +94,6 @@ public class SectionCompilerMixin {
 			}
 		}
 	}
-	//?}
+	*///?}
 
 }

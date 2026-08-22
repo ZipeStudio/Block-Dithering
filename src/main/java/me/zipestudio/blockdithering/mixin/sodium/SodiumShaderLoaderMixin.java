@@ -1,6 +1,7 @@
 package me.zipestudio.blockdithering.mixin.sodium;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+//? if <26.2 {
+/*import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.caffeinemc.mods.sodium.client.gl.shader.ShaderLoader;
 import me.zipestudio.blockdithering.dithering.sodium.SodiumDitherShaderPatcher;
@@ -26,3 +27,4 @@ public class SodiumShaderLoaderMixin {
 		return source;
 	}
 }
+*///?}

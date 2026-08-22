@@ -2,10 +2,10 @@ package me.zipestudio.blockdithering.mixin.sodium;
 
 
 //? if >=26.1 {
-/*import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
-*///?} else {
-import net.minecraft.client.renderer.block.model.BlockStateModel;
-//?}
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+//?} else {
+/*import net.minecraft.client.renderer.block.model.BlockStateModel;
+*///?}
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;

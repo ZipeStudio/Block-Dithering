@@ -7,8 +7,13 @@
 	"mixins": [
 	],
 	"client": [
-		"SodiumProgramsMixin",
+		//? if <26.2 {
+		/*"SodiumProgramsMixin",
 		"SodiumShaderDitherUniformsMixin",
+		*///?}
+		//? if >=26.2 {
+		"ShaderCreatorMixin",
+		//?}
 		"SodiumTerrainBlockIdMixin"
 	],
 	"injectors": {

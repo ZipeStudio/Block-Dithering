@@ -29,8 +29,11 @@ public final class DitherPresets {
 
 	public static final Preset GLASS_ICE = new Preset("glass_ice",
 			List.of(
-					"#c:glass_blocks",
+					"minecraft:*glass*",
+					"#minecraft:glass_panes",
+					"#minecraft:glass_blocks",
 					"#c:glass_panes",
+					"#c:glass_blocks",
 					"minecraft:ice"
 			),
 			List.of());

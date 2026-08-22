@@ -7,8 +7,10 @@
 	"mixins": [
 	],
 	"client": [
-		"SodiumBlockRendererMixin",
-		"SodiumShaderLoaderMixin"
+		//? if <26.2 {
+		/*"SodiumShaderLoaderMixin",
+		*///?}
+		"SodiumBlockRendererMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

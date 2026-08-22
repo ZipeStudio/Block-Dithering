@@ -24,6 +24,7 @@ public class YACLConfigurationScreen {
 	}
 
 	public static Screen createScreen(Screen parent) {
+
 		LeafyConfig defConfig = LeafyConfig.getNewInstance();
 		LeafyConfig config = LeafyConfig.getInstance();
 
@@ -43,6 +44,7 @@ public class YACLConfigurationScreen {
 				return DitherPresets.byId(config.getActivePreset()).whitelistCopy();
 			}
 		});
+
 		ListOption<String> blacklistOption = buildListOption("dither_blocks_blacklist", new Binding<>() {
 			@Override
 			public void setValue(List<String> value) {
@@ -83,7 +85,11 @@ public class YACLConfigurationScreen {
 	private static void reloadChunks() {
 		Minecraft minecraft = Minecraft.getInstance();
 		if (minecraft.level != null && minecraft.levelRenderer != null) {
-			minecraft.levelRenderer.allChanged();
+			//? if >=26.2 {
+			minecraft.levelExtractor.allChanged();
+			//?} else {
+			/*minecraft.levelRenderer.allChanged();
+			*///?}
 		}
 	}
 

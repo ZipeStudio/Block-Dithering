@@ -1,6 +1,7 @@
 package me.zipestudio.blockdithering.mixin.iris;
 
-import me.zipestudio.blockdithering.config.LeafyConfig;
+//? if <26.2 {
+/*import me.zipestudio.blockdithering.config.LeafyConfig;
 import me.zipestudio.blockdithering.dithering.DitheringDataConfig;
 import net.irisshaders.iris.pipeline.programs.SodiumShader;
 import org.lwjgl.opengl.GL20;
@@ -56,3 +57,4 @@ public class SodiumShaderDitherUniformsMixin {
 		}
 	}
 }
+*///?}

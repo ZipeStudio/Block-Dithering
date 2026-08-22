@@ -26,9 +26,14 @@ public class DitherBlocks {
 
 	public static List<String> defaultEntries() {
 		return new ArrayList<>(List.of(
-				"minecraft:*glass*",
 				"minecraft:*bars*",
+				"minecraft:*glass*",
+				"#minecraft:glass_panes",
+				"#minecraft:glass_blocks",
+				"#c:glass_panes",
+				"#c:glass_blocks",
 				"#minecraft:flowers",
+				"#minecraft:crops",
 				"#minecraft:fences",
 				"#minecraft:chains",
 				"#minecraft:corals",

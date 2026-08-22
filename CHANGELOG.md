@@ -1,3 +1,6 @@
-v1.0.3:
+v1.0.4:
 ### Changes
-- Updated the default whitelist & blacklist so blocks are detected correctly in multiplayer
+- Ported to 26.2
+- Updated mod icon
+### Fixes
+- Updated whitelists to ensure glass blocks are detected correctly with mods & multiplayer

@@ -9,8 +9,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LevelRenderer.class)
 public class LevelRendererMixin {
 
-	@Inject(at = @At("HEAD"), method = "renderLevel")
+	//? if >=26.2 {
+	@Inject(at = @At("HEAD"), method = "render")
 	private void blockdithering$updateDitheringBuffer(CallbackInfo ci) {
 		DitheringDataBuffer.update();
 	}
+	//?} else {
+	/*@Inject(at = @At("HEAD"), method = "renderLevel")
+	private void blockdithering$updateDitheringBuffer(CallbackInfo ci) {
+		DitheringDataBuffer.update();
+	}
+	*///?}
+
 }

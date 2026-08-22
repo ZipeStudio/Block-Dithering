@@ -1,10 +1,10 @@
 package me.zipestudio.blockdithering.mixin.iris;
 
 //? if >=26.1 {
-/*import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
- *///?} else {
-import net.minecraft.client.renderer.block.model.BlockStateModel;
-//?}
+import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+ //?} else {
+/*import net.minecraft.client.renderer.block.model.BlockStateModel;
+*///?}
 
 import me.zipestudio.blockdithering.dithering.DitherBlocks;
 import me.zipestudio.blockdithering.dithering.iris.IrisDitherShaderPatcher;

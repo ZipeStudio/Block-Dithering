@@ -34,7 +34,7 @@ public class YACLSearchMixin {
     @Inject(method = "matchesSearch", at = @At("HEAD"), cancellable = true)
     private void injectMatchesSearch(String query, CallbackInfoReturnable<Boolean> cir) {
 
-        if (!(Minecraft.getInstance().screen instanceof LeafyYaclScreen)) return;
+        if (!YACLSearchState.isLeafyScreen()) return;
 
         Object value = this.listOptionEntry.pendingValue();
         if (value == null) return;
@@ -46,7 +46,7 @@ public class YACLSearchMixin {
     @Inject(method = "updateButtonStates", at = @At("TAIL"))
     private void disableMoveWhileSearching(CallbackInfo ci) {
 
-        if (!(Minecraft.getInstance().screen instanceof LeafyYaclScreen)) return;
+        if (!YACLSearchState.isLeafyScreen()) return;
         if (!YACLSearchState.isSearchActive()) return;
         this.moveUpButton.active = false;
         this.moveDownButton.active = false;

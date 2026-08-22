@@ -5,6 +5,7 @@ import com.mojang.blaze3d.shaders.ShaderSource;
 import com.mojang.blaze3d.shaders.ShaderType;
 import me.zipestudio.blockdithering.dithering.DitherTargets;
 import me.zipestudio.blockdithering.dithering.DitherVanillaPatcher;
+import me.zipestudio.blockdithering.dithering.sodium.SodiumDitherShaderPatcher;
 import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,9 +22,15 @@ public class GlDeviceMixin {
 	)
 	private String blockdithering$injectDitheringSource(ShaderSource instance, Identifier id, ShaderType type, Operation<String> original) {
 		String source = instance.get(id, type);
-		if (source == null || type != ShaderType.FRAGMENT || !DitherTargets.isTarget(id)) {
+		if (source == null || type != ShaderType.FRAGMENT) {
 			return source;
 		}
-		return DitherVanillaPatcher.patchFragment(source);
+		if (DitherTargets.isTarget(id)) {
+			return DitherVanillaPatcher.patchFragment(source);
+		}
+		if (DitherTargets.isSodiumTarget(id)) {
+			return SodiumDitherShaderPatcher.patchFragment(source);
+		}
+		return source;
 	}
 }
