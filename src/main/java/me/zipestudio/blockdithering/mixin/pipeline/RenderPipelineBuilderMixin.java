@@ -8,6 +8,7 @@ import com.mojang.blaze3d.shaders.UniformType;
 import java.util.List;
 import java.util.Optional;
 import me.zipestudio.blockdithering.dithering.DitherTargets;
+import me.zipestudio.blockdithering.dithering.sodium.SodiumDitherShaderPatcher;
 import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -31,17 +32,29 @@ public abstract class RenderPipelineBuilderMixin {
 
 	@Inject(method = "build", at = @At("HEAD"))
 	private void blockdithering$addDitheringUniform(CallbackInfoReturnable<RenderPipeline> cir) {
-		if (this.fragmentShader.isEmpty() || !DitherTargets.isTarget(this.fragmentShader.get())) {
+		if (this.fragmentShader.isEmpty()) {
 			return;
 		}
+		Identifier fragment = this.fragmentShader.get();
 		//? if >=26.2 {
+		String name;
+		if (DitherTargets.isTarget(fragment)) {
+			name = "DitheringData";
+		} else if (DitherTargets.isSodiumTarget(fragment)) {
+			name = SodiumDitherShaderPatcher.UNIFORM_BLOCK_NAME;
+		} else {
+			return;
+		}
 		boolean already = this.bindGroupLayouts.isPresent() && BindGroupLayout.flattenUniforms(this.bindGroupLayouts.get()).stream()
-				.anyMatch(u -> "DitheringData".equals(u.name()));
+				.anyMatch(u -> name.equals(u.name()));
 		if (!already) {
-			this.withBindGroupLayout(BindGroupLayout.builder().withUniform("DitheringData", UniformType.UNIFORM_BUFFER).build());
+			this.withBindGroupLayout(BindGroupLayout.builder().withUniform(name, UniformType.UNIFORM_BUFFER).build());
 		}
 		//?} else {
-		/*boolean already = this.uniforms.isPresent() && this.uniforms.get().stream()
+		/*if (!DitherTargets.isTarget(fragment)) {
+			return;
+		}
+		boolean already = this.uniforms.isPresent() && this.uniforms.get().stream()
 				.anyMatch(u -> "DitheringData".equals(u.name()));
 		if (!already) {
 			this.withUniform("DitheringData", UniformType.UNIFORM_BUFFER);

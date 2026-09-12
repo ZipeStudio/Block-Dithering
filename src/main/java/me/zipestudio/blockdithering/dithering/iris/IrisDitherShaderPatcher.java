@@ -1,11 +1,8 @@
 package me.zipestudio.blockdithering.dithering.iris;
 
-import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import me.zipestudio.blockdithering.config.LeafyConfig;
 import me.zipestudio.blockdithering.dithering.DitherVanillaPatcher;
-import me.zipestudio.blockdithering.dithering.DitheringDataConfig;
 
 public class IrisDitherShaderPatcher {
 
@@ -46,6 +43,13 @@ public class IrisDitherShaderPatcher {
 		}
 		""";
 
+	private static final String UNIFORM_DECLARATIONS = """
+		uniform float BlockDitheringFar;
+		uniform float BlockDitheringNear;
+		uniform float BlockDitheringMinValue;
+		uniform float BlockDitheringPixelSize;
+		""";
+
 	public static String patchVertexShader(String source) {
 		if (source == null || source.contains(MARKER)) {
 			return source;
@@ -69,10 +73,6 @@ public class IrisDitherShaderPatcher {
 	}
 
 	public static String patchFragmentShader(String source) {
-		return patchFragmentShader(source, false);
-	}
-
-	public static String patchFragmentShader(String source, boolean bakeConstants) {
 		if (source == null || source.contains(MARKER)) {
 			return source;
 		}
@@ -84,18 +84,7 @@ public class IrisDitherShaderPatcher {
 		StringBuilder header = new StringBuilder();
 		header.append(MARKER).append(" begin\n");
 		header.append("in float ").append(VARYING).append(";\n");
-		if (bakeConstants) {
-			DitheringDataConfig c = LeafyConfig.getInstance().getDitheringOptions();
-			header.append("const float BlockDitheringFar = ").append(glsl(c.getFarDistance())).append(";\n");
-			header.append("const float BlockDitheringNear = ").append(glsl(c.getNearDistance())).append(";\n");
-			header.append("const float BlockDitheringMinValue = ").append(glsl(c.getMinVisibility())).append(";\n");
-			header.append("const float BlockDitheringPixelSize = ").append(glsl(Math.max(c.getPixelSize(), 1.0))).append(";\n");
-		} else {
-			header.append("uniform float BlockDitheringFar;\n");
-			header.append("uniform float BlockDitheringNear;\n");
-			header.append("uniform float BlockDitheringMinValue;\n");
-			header.append("uniform float BlockDitheringPixelSize;\n");
-		}
+		header.append(UNIFORM_DECLARATIONS);
 		if (!source.contains("viewWidth")) {
 			header.append("uniform float viewWidth;\n");
 		}
@@ -117,10 +106,6 @@ public class IrisDitherShaderPatcher {
 			+ source.substring(main.start(), main.end())
 			+ call
 			+ source.substring(main.end());
-	}
-
-	private static String glsl(double value) {
-		return String.format(Locale.ROOT, "%.6f", value);
 	}
 
 	private IrisDitherShaderPatcher() { }

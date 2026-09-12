@@ -32,7 +32,7 @@ public class ShaderCreatorMixin {
 		}
 
 		String patchedVertex = IrisDitherShaderPatcher.patchVertexShader(vertex);
-		String patchedFragment = IrisDitherShaderPatcher.patchFragmentShader(fragment, true);
+		String patchedFragment = IrisDitherShaderPatcher.patchFragmentShader(fragment);
 		if (patchedVertex == null || patchedFragment == null) {
 			BlockDithering.LOGGER.info("Iris terrain program '{}' NOT patched (vertex ok={}, fragment ok={})",
 					name, patchedVertex != null, patchedFragment != null);

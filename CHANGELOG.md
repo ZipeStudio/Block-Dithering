@@ -1,6 +1,3 @@
-v1.0.4:
-### Changes
-- Ported to 26.2
-- Updated mod icon
+pre-v1.0.5:
 ### Fixes
-- Updated whitelists to ensure glass blocks are detected correctly with mods & multiplayer
+- Fixed (#3) issue

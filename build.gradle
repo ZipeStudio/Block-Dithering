@@ -29,14 +29,9 @@ mossyDependencies {
 }
 
 mossyResources {
-	//expandFiles = ["file pattern"]
 	customProperty("mossylib_version", MossyUtils.substringBefore(prop("dep.mossylib"), "+"))
 }
 
-// NeoForge ships Sodium as a JarJar wrapper: its real classes are nested in a META-INF/jarjar/*-mod.jar,
-// so the plugin's compile-only sodium dependency exposes only bootstrap classes and the Sodium mixins
-// can't see net.caffeinemc.* . Extract the nested mod jar and add it to the compile classpath. Fabric
-// ships the classes directly, so this is needed on NeoForge only.
 if (!stonecutter.current.project.contains("fabric") && findProperty("dep.sodium") != null) {
 	dependencies {
 		compileOnly files(extractNestedSodiumJar("maven.modrinth:sodium:${prop("dep.sodium")}"))

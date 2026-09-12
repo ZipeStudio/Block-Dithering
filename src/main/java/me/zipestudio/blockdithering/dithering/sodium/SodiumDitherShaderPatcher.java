@@ -1,16 +1,41 @@
 package me.zipestudio.blockdithering.dithering.sodium;
 
 import java.util.Locale;
-import me.zipestudio.blockdithering.config.LeafyConfig;
 import me.zipestudio.blockdithering.dithering.DitherVanillaPatcher;
-import me.zipestudio.blockdithering.dithering.DitheringDataConfig;
 
 public class SodiumDitherShaderPatcher {
+
+	//? if >=26.2 {
+	public static final String UNIFORM_BLOCK_NAME = "u_DitheringData";
+	//?} else {
+	/*public static final String MIN_VALUE_UNIFORM = "BlockDitheringMinValue";
+	public static final String PIXEL_SIZE_UNIFORM = "BlockDitheringPixelSize";
+	public static final String NEAR_DISTANCE_UNIFORM = "BlockDitheringNearDistance";
+	public static final String FAR_DISTANCE_UNIFORM = "BlockDitheringFarDistance";
+	*///?}
 
 	private static final String MARKER = "// blockdithering:dithering";
 	private static final String COLOR_APPLY = "color *= v_Color;";
 
-	private static final String EASE_AND_MATRIX = """
+	//? if >=26.2 {
+	private static final String PARAMETERS = """
+		layout(std140) uniform u_DitheringData {
+		    float BlockDitheringMinValue;
+		    float BlockDitheringPixelSize;
+		    float BlockDitheringNearDistance;
+		    float BlockDitheringFarDistance;
+		};
+		""";
+	//?} else {
+	/*private static final String PARAMETERS = """
+		uniform float BlockDitheringMinValue;
+		uniform float BlockDitheringPixelSize;
+		uniform float BlockDitheringNearDistance;
+		uniform float BlockDitheringFarDistance;
+		""";
+	*///?}
+
+	private static final String DITHER_BODY = """
 		const mat4 BLOCKDITHERING_DITHER_MAT = mat4(
 		    1.0 / 17.0,  9.0 / 17.0,  3.0 / 17.0,  11.0 / 17.0,
 		    13.0 / 17.0, 5.0 / 17.0,  15.0 / 17.0, 7.0 / 17.0,
@@ -20,6 +45,17 @@ public class SodiumDitherShaderPatcher {
 
 		float blockdithering_easeInOutCubic(float x) {
 		    return x < 0.5 ? 4.0 * x * x * x : 1.0 - pow(-2.0 * x + 2.0, 3.0) / 2.0;
+		}
+
+		void blockdithering_applyDistanceDither(float cameraDistance, vec2 fragCoord) {
+		    float v = clamp(smoothstep(BlockDitheringNearDistance, BlockDitheringFarDistance, cameraDistance), BlockDitheringMinValue, 1.0);
+		    v = blockdithering_easeInOutCubic(v);
+		    vec2 cell = fragCoord / max(BlockDitheringPixelSize, 1.0);
+		    int x = int(cell.x);
+		    int y = int(cell.y);
+		    if (v < BLOCKDITHERING_DITHER_MAT[x % 4][y % 4]) {
+		        discard;
+		    }
 		}
 		""";
 
@@ -36,8 +72,7 @@ public class SodiumDitherShaderPatcher {
 			return source;
 		}
 
-		DitheringDataConfig c = LeafyConfig.getInstance().getDitheringOptions();
-		String header = MARKER + " begin\n" + EASE_AND_MATRIX + ditherFunction(c) + MARKER + " end\n\n";
+		String header = MARKER + " begin\n" + PARAMETERS + "\n" + DITHER_BODY + MARKER + " end\n\n";
 
 		int insertAt = applyIdx + COLOR_APPLY.length();
 		String call = "\n\tif (v_Color.a < " + glsl(DitherVanillaPatcher.MARKER_THRESHOLD) + ") {\n"
@@ -50,20 +85,6 @@ public class SodiumDitherShaderPatcher {
 			+ source.substring(mainIdx, insertAt)
 			+ call
 			+ source.substring(insertAt);
-	}
-
-	private static String ditherFunction(DitheringDataConfig c) {
-		return "void blockdithering_applyDistanceDither(float cameraDistance, vec2 fragCoord) {\n"
-			+ "    float v = clamp(smoothstep(" + glsl(c.getNearDistance()) + ", " + glsl(c.getFarDistance())
-			+ ", cameraDistance), " + glsl(c.getMinVisibility()) + ", 1.0);\n"
-			+ "    v = blockdithering_easeInOutCubic(v);\n"
-			+ "    vec2 cell = fragCoord / " + glsl(c.getPixelSize()) + ";\n"
-			+ "    int x = int(cell.x);\n"
-			+ "    int y = int(cell.y);\n"
-			+ "    if (v < BLOCKDITHERING_DITHER_MAT[x % 4][y % 4]) {\n"
-			+ "        discard;\n"
-			+ "    }\n"
-			+ "}\n";
 	}
 
 	private static String glsl(double value) {

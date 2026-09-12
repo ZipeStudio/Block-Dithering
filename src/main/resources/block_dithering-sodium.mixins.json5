@@ -9,7 +9,11 @@
 	"client": [
 		//? if <26.2 {
 		/*"SodiumShaderLoaderMixin",
+		"SodiumShaderInterfaceDitherMixin",
 		*///?}
+		//? if >=26.2 {
+		"SodiumChunkRendererDitherMixin",
+		//?}
 		"SodiumBlockRendererMixin"
 	],
 	"injectors": {

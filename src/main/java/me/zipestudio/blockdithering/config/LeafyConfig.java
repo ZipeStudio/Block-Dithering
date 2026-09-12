@@ -42,8 +42,6 @@ public class LeafyConfig {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BlockDithering.MOD_NAME + "/Config");
 	private static LeafyConfig INSTANCE;
 
-	private static final int CURRENT_CONFIG_VERSION = 1;
-
 	private int configVersion;
 	private boolean modEnabled;
 	private DitheringDataConfig ditheringOptions;
