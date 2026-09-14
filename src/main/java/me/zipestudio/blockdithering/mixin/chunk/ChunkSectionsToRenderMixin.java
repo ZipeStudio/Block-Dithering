@@ -1,6 +1,7 @@
 package me.zipestudio.blockdithering.mixin.chunk;
 
-import com.llamalad7.mixinextras.sugar.Local;
+//? if >=1.21.11 {
+/*import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.systems.RenderPass;
 import me.zipestudio.blockdithering.dithering.DitheringDataBuffer;
 import net.minecraft.client.renderer.chunk.ChunkSectionsToRender;
@@ -24,3 +25,4 @@ public class ChunkSectionsToRenderMixin {
 		renderPass.setUniform("DitheringData", DitheringDataBuffer.BUFFER);
 	}
 }
+*///?}

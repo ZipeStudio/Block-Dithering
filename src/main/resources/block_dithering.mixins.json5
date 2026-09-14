@@ -8,12 +8,19 @@
   "client": [
     "YACLSearchMixin",
     "YACLSearchQueryMixin",
-    "pipeline.RenderPipelineBuilderMixin",
+    //? if >=1.21.11 {
+    /*"pipeline.RenderPipelineBuilderMixin",
     "render.GlDeviceMixin",
-    "render.LevelRendererMixin",
-    "render.BufferBuilderMixin",
     "chunk.ChunkSectionsToRenderMixin",
-    "chunk.SectionCompilerMixin"
+    "render.LevelRendererMixin",
+    "chunk.SectionCompilerMixin",
+    *///?} else {
+    "render.ProgramMixin",
+    "render.ShaderInstanceMixin",
+    "render.ModelBlockRendererMixin",
+    "render.HitOutlineMixin",
+    //?}
+    "render.BufferBuilderMixin"
   ],
   "injectors": {
     "defaultRequire": 1

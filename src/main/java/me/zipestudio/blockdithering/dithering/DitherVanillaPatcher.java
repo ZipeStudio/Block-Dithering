@@ -12,13 +12,59 @@ public class DitherVanillaPatcher {
 
 	private static final Pattern MAIN_PATTERN = Pattern.compile("void\\s+main\\s*\\(\\s*(?:void)?\\s*\\)\\s*\\{");
 
-	private static final String FRAGMENT_BODY = """
+	//? if >=1.21.11 {
+	/*private static final String PARAMETERS = """
 		layout(std140) uniform DitheringData {
 		    float DitherMinValue;
 		    float DitherPixelSize;
 		    float DitherNearDistance;
 		    float DitherFarDistance;
 		};
+		""";
+	private static final String DISTANCE = "sphericalVertexDistance";
+	*///?} else {
+	private static final String DISTANCE = "de_sphericalDistance";
+	private static final String PARAMETERS = """
+		uniform float DitherMinValue;
+		uniform float DitherPixelSize;
+		uniform float DitherNearDistance;
+		uniform float DitherFarDistance;
+		in float de_sphericalDistance;
+		""";
+
+	private static final String OUTLINE_FRAGMENT_CALL =
+		"\n\tif (abs(vertexColor.a * 255.0 - " + DitherMarker.OUTLINE_ALPHA + ".0) < 0.5) {\n"
+			+ "\t\tcolor.a = DitherOutlineAlpha * ColorModulator.a;\n"
+			+ "\t\tde_applyDistanceDither(DitherOutlineDistance, gl_FragCoord.xy);\n"
+			+ "\t}\n";
+
+	public static String patchLegacy(String programName, boolean vertex, String source) {
+		if (DitherTargets.isLegacyTarget(programName)) {
+			return vertex ? patchVertex(source, "Position + ChunkOffset") : patchFragment(source);
+		}
+		if (DitherTargets.isLegacyOutline(programName)) {
+			return vertex ? patchVertex(source, "Position") : patchFragmentWith(source, "uniform float DitherOutlineDistance;\nuniform float DitherOutlineAlpha;\n", OUTLINE_FRAGMENT_CALL);
+		}
+		return source;
+	}
+
+	private static String patchVertex(String source, String position) {
+		if (source == null || source.contains(MARKER)) {
+			return source;
+		}
+		Matcher main = MAIN_PATTERN.matcher(source);
+		if (!main.find()) {
+			return source;
+		}
+		return source.substring(0, main.start())
+			+ MARKER + "\nout float " + DISTANCE + ";\n\n"
+			+ source.substring(main.start(), main.end())
+			+ "\n\t" + DISTANCE + " = length((ModelViewMat * vec4(" + position + ", 1.0)).xyz);\n"
+			+ source.substring(main.end());
+	}
+	//?}
+
+	private static final String FRAGMENT_BODY = PARAMETERS + """
 
 		const mat4 DE_DITHER_MAT = mat4(
 		    1.0 / 17.0,  9.0 / 17.0,  3.0 / 17.0,  11.0 / 17.0,
@@ -46,10 +92,14 @@ public class DitherVanillaPatcher {
 	private static final String FRAGMENT_CALL =
 		"\n\tif (vertexColor.a < " + MARKER_THRESHOLD + ") {\n"
 			+ "\t\tcolor.a = min(color.a / " + MARKER_SCALE + ", 1.0);\n"
-			+ "\t\tde_applyDistanceDither(sphericalVertexDistance, gl_FragCoord.xy);\n"
+			+ "\t\tde_applyDistanceDither(" + DISTANCE + ", gl_FragCoord.xy);\n"
 			+ "\t}\n";
 
 	public static String patchFragment(String source) {
+		return patchFragmentWith(source, "", FRAGMENT_CALL);
+	}
+
+	private static String patchFragmentWith(String source, String extraHeader, String call) {
 		if (source == null || source.contains(MARKER)) {
 			return source;
 		}
@@ -61,11 +111,11 @@ public class DitherVanillaPatcher {
 		if (fragIdx < 0) {
 			return source;
 		}
-		String header = MARKER + " begin\n" + FRAGMENT_BODY + MARKER + " end\n\n";
+		String header = MARKER + " begin\n" + extraHeader + FRAGMENT_BODY + MARKER + " end\n\n";
 		return source.substring(0, main.start())
 			+ header
 			+ source.substring(main.start(), fragIdx)
-			+ FRAGMENT_CALL
+			+ call
 			+ source.substring(fragIdx);
 	}
 }

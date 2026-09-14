@@ -18,9 +18,9 @@ public final class YACLSearchState {
 
     public static boolean isLeafyScreen() {
         //? if >=26.2 {
-        return Minecraft.getInstance().gui.screen() instanceof LeafyYaclScreen;
-        //?} else {
-        /*return Minecraft.getInstance().screen instanceof LeafyYaclScreen;
-        *///?}
+        /*return Minecraft.getInstance().gui.screen() instanceof LeafyYaclScreen;
+        *///?} else {
+        return Minecraft.getInstance().screen instanceof LeafyYaclScreen;
+        //?}
     }
 }

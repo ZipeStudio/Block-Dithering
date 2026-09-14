@@ -1,7 +1,7 @@
 package me.zipestudio.blockdithering.mixin.sodium;
 
 //? if >=26.2 {
-import com.llamalad7.mixinextras.sugar.Local;
+/*import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.systems.RenderPass;
 import me.zipestudio.blockdithering.dithering.DitheringDataBuffer;
 import me.zipestudio.blockdithering.dithering.sodium.SodiumDitherShaderPatcher;
@@ -26,4 +26,4 @@ public class SodiumChunkRendererDitherMixin {
 		pass.setUniform(SodiumDitherShaderPatcher.UNIFORM_BLOCK_NAME, DitheringDataBuffer.BUFFER);
 	}
 }
-//?}
+*///?}

@@ -2,10 +2,12 @@ package me.zipestudio.blockdithering.mixin.sodium;
 
 
 //? if >=26.1 {
-import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
-//?} else {
+/*import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+*///?} elif >=1.21.11 {
 /*import net.minecraft.client.renderer.block.model.BlockStateModel;
-*///?}
+*///?} else {
+import net.minecraft.client.resources.model.BakedModel;
+//?}
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -28,7 +30,11 @@ public class SodiumBlockRendererMixin {
 	private boolean blockdithering$dither;
 
 	@Inject(method = "renderModel", at = @At("HEAD"))
-	private void blockdithering$flagTargetBlock(BlockStateModel model, BlockState state, BlockPos pos, BlockPos origin, CallbackInfo ci) {
+	//? if >=1.21.11 {
+	/*private void blockdithering$flagTargetBlock(BlockStateModel model, BlockState state, BlockPos pos, BlockPos origin, CallbackInfo ci) {
+	*///?} else {
+	private void blockdithering$flagTargetBlock(BakedModel model, BlockState state, BlockPos pos, BlockPos origin, CallbackInfo ci) {
+	//?}
 		this.blockdithering$dither = DitherBlocks.isTarget(state);
 	}
 

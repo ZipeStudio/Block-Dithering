@@ -32,6 +32,14 @@ mossyResources {
 	customProperty("mossylib_version", MossyUtils.substringBefore(prop("dep.mossylib"), "+"))
 }
 
+if (findProperty("dev.run_sodium_iris")?.toString() == "true" && stonecutter.current.project.contains("fabric")) {
+	String runtimeConfig = configurations.findByName("modLocalRuntime") != null ? "modLocalRuntime" : "localRuntime"
+	dependencies {
+		add(runtimeConfig, "maven.modrinth:sodium:${prop("dep.sodium")}")
+		add(runtimeConfig, "maven.modrinth:iris:${prop("dep.iris")}")
+	}
+}
+
 if (!stonecutter.current.project.contains("fabric") && findProperty("dep.sodium") != null) {
 	dependencies {
 		compileOnly files(extractNestedSodiumJar("maven.modrinth:sodium:${prop("dep.sodium")}"))

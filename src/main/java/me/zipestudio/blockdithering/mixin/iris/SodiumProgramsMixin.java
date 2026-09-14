@@ -1,7 +1,7 @@
 package me.zipestudio.blockdithering.mixin.iris;
 
 //? if <26.2 {
-/*import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import java.util.EnumMap;
 import java.util.Locale;
@@ -64,4 +64,4 @@ public class SodiumProgramsMixin {
 		}
 	}
 }
-*///?}
+//?}

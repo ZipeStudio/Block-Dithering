@@ -1,10 +1,12 @@
 package me.zipestudio.blockdithering.mixin.iris;
 
 //? if >=26.1 {
-import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
- //?} else {
+/*import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
+ *///?} elif >=1.21.11 {
 /*import net.minecraft.client.renderer.block.model.BlockStateModel;
-*///?}
+*///?} else {
+import net.minecraft.client.resources.model.BakedModel;
+//?}
 
 import me.zipestudio.blockdithering.dithering.DitherBlocks;
 import me.zipestudio.blockdithering.dithering.iris.IrisDitherShaderPatcher;
@@ -21,14 +23,22 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class SodiumTerrainBlockIdMixin {
 
 	@Inject(method = "renderModel", at = @At("HEAD"))
-	private void blockdithering$forceMarkerBlockId(BlockStateModel model, BlockState state, BlockPos pos, BlockPos origin, CallbackInfo ci) {
+	//? if >=1.21.11 {
+	/*private void blockdithering$forceMarkerBlockId(BlockStateModel model, BlockState state, BlockPos pos, BlockPos origin, CallbackInfo ci) {
+	*///?} else {
+	private void blockdithering$forceMarkerBlockId(BakedModel model, BlockState state, BlockPos pos, BlockPos origin, CallbackInfo ci) {
+	//?}
 		if (DitherBlocks.isTarget(state)) {
 			((VertexEncoderInterface) this).overrideBlock(IrisDitherShaderPatcher.BLOCK_ID_SENTINEL);
 		}
 	}
 
 	@Inject(method = "renderModel", at = @At("RETURN"))
-	private void blockdithering$restoreBlockId(BlockStateModel model, BlockState state, BlockPos pos, BlockPos origin, CallbackInfo ci) {
+	//? if >=1.21.11 {
+	/*private void blockdithering$restoreBlockId(BlockStateModel model, BlockState state, BlockPos pos, BlockPos origin, CallbackInfo ci) {
+	*///?} else {
+	private void blockdithering$restoreBlockId(BakedModel model, BlockState state, BlockPos pos, BlockPos origin, CallbackInfo ci) {
+	//?}
 		if (DitherBlocks.isTarget(state)) {
 			((VertexEncoderInterface) this).restoreBlock();
 		}

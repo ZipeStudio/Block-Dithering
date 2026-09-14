@@ -8,10 +8,16 @@
 	],
 	"client": [
 		//? if <26.2 {
-		/*"SodiumProgramsMixin",
-		*///?}
+		"SodiumProgramsMixin",
+		//?}
 		//? if >=26.2 {
-		"ShaderCreatorMixin",
+		/*"ShaderCreatorMixin",
+		*///?}
+		//? if <1.21.11 {
+		"SodiumBlockRenderContextMixin",
+		"VanillaShaderCreatorMixin",
+		"VanillaBlockIdMixin",
+		"IrisBufferBlockIdMixin",
 		//?}
 		"CommonUniformsDitherMixin",
 		"SodiumTerrainBlockIdMixin"

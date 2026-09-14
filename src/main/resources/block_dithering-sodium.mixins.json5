@@ -8,11 +8,14 @@
 	],
 	"client": [
 		//? if <26.2 {
-		/*"SodiumShaderLoaderMixin",
+		"SodiumShaderLoaderMixin",
 		"SodiumShaderInterfaceDitherMixin",
-		*///?}
+		//?}
 		//? if >=26.2 {
-		"SodiumChunkRendererDitherMixin",
+		/*"SodiumChunkRendererDitherMixin",
+		*///?}
+		//? if <1.21.11 {
+		"SodiumQuadEncoderMixin",
 		//?}
 		"SodiumBlockRendererMixin"
 	],

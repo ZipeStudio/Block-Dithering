@@ -1,0 +1,17 @@
+{
+	"required": false,
+	"package": "me.zipestudio.blockdithering.mixin.veil",
+	"plugin": "me.zipestudio.blockdithering.compat.VeilCompatPlugin",
+	"refmap": "${mod_id}.refmap.json",
+	"compatibilityLevel": "JAVA_${java}",
+	"mixins": [
+	],
+	"client": [
+		//? if <1.21.11 {
+		"VanillaShaderCompilerMixin"
+		//?}
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

@@ -86,10 +86,10 @@ public class YACLConfigurationScreen {
 		Minecraft minecraft = Minecraft.getInstance();
 		if (minecraft.level != null && minecraft.levelRenderer != null) {
 			//? if >=26.2 {
-			minecraft.levelExtractor.allChanged();
-			//?} else {
-			/*minecraft.levelRenderer.allChanged();
-			*///?}
+			/*minecraft.levelExtractor.allChanged();
+			*///?} else {
+			minecraft.levelRenderer.allChanged();
+			//?}
 		}
 	}
 

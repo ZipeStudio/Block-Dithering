@@ -1,7 +1,7 @@
 package me.zipestudio.blockdithering.mixin.iris;
 
 //? if >=26.2 {
-import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+/*import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import java.util.Locale;
 import com.mojang.blaze3d.vertex.VertexFormat;
@@ -49,4 +49,4 @@ public class ShaderCreatorMixin {
 		}
 	}
 }
-//?}
+*///?}

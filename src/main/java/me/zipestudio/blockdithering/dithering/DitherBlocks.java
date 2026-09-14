@@ -11,7 +11,7 @@ import me.zipestudio.blockdithering.config.LeafyConfig;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -82,7 +82,13 @@ public class DitherBlocks {
 	}
 
 	private static boolean compute(BlockState state) {
-		VoxelShape occlusion = state.getOcclusionShape();
+		//? if >=1.21.11 {
+		/*VoxelShape occlusion = state.getOcclusionShape();
+		*///?} else {
+		VoxelShape occlusion = state.canOcclude()
+				? state.getOcclusionShape(net.minecraft.world.level.EmptyBlockGetter.INSTANCE, net.minecraft.core.BlockPos.ZERO)
+				: net.minecraft.world.phys.shapes.Shapes.empty();
+		//?}
 		for (Direction dir : Direction.values()) {
 			if (Block.isFaceFull(occlusion, dir)) {
 				return false;
@@ -129,11 +135,15 @@ public class DitherBlocks {
 					String entry = raw.trim();
 					try {
 						if (entry.startsWith("#")) {
-							parsedTags.add(TagKey.create(Registries.BLOCK, Identifier.parse(entry.substring(1))));
+							parsedTags.add(TagKey.create(Registries.BLOCK, ResourceLocation.parse(entry.substring(1))));
 						} else if (entry.indexOf('*') >= 0) {
 							parsedPatterns.add(toPattern(entry));
 						} else {
-							Block block = BuiltInRegistries.BLOCK.getValue(Identifier.parse(entry));
+							//? if >=1.21.11 {
+							/*Block block = BuiltInRegistries.BLOCK.getValue(ResourceLocation.parse(entry));
+							*///?} else {
+							Block block = BuiltInRegistries.BLOCK.getOptional(ResourceLocation.parse(entry)).orElse(null);
+							//?}
 							if (block != null) {
 								parsedBlocks.add(block);
 							}
@@ -157,7 +167,7 @@ public class DitherBlocks {
 				}
 			}
 			if (!p.patterns().isEmpty()) {
-				Identifier id = BuiltInRegistries.BLOCK.getKey(block);
+				ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
 				if (id != null) {
 					String key = id.toString();
 					for (Pattern pattern : p.patterns()) {

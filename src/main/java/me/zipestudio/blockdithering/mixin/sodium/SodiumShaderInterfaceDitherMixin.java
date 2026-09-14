@@ -1,7 +1,8 @@
 package me.zipestudio.blockdithering.mixin.sodium;
 
 //? if <26.2 {
-/*import com.mojang.blaze3d.textures.GpuSampler;
+//? if >=1.21.11
+//import com.mojang.blaze3d.textures.GpuSampler;
 import me.zipestudio.blockdithering.config.LeafyConfig;
 import me.zipestudio.blockdithering.dithering.DitheringDataConfig;
 import me.zipestudio.blockdithering.dithering.sodium.SodiumDitherShaderPatcher;
@@ -10,7 +11,8 @@ import net.caffeinemc.mods.sodium.client.render.chunk.shader.ChunkShaderOptions;
 import net.caffeinemc.mods.sodium.client.render.chunk.shader.DefaultShaderInterface;
 import net.caffeinemc.mods.sodium.client.render.chunk.shader.ShaderBindingContext;
 import net.caffeinemc.mods.sodium.client.render.chunk.terrain.TerrainRenderPass;
-import net.caffeinemc.mods.sodium.client.util.FogParameters;
+//? if >=1.21.11
+//import net.caffeinemc.mods.sodium.client.util.FogParameters;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -38,7 +40,11 @@ public class SodiumShaderInterfaceDitherMixin {
 	}
 
 	@Inject(method = "setupState", at = @At("TAIL"))
-	private void blockdithering$uploadDitherUniforms(TerrainRenderPass pass, FogParameters parameters, GpuSampler terrainSampler, CallbackInfo ci) {
+	//? if >=1.21.11 {
+	/*private void blockdithering$uploadDitherUniforms(TerrainRenderPass pass, FogParameters parameters, GpuSampler terrainSampler, CallbackInfo ci) {
+	*///?} else {
+	private void blockdithering$uploadDitherUniforms(CallbackInfo ci) {
+	//?}
 		DitheringDataConfig d = LeafyConfig.getInstance().getDitheringOptions();
 		if (this.blockdithering$minValue != null) {
 			this.blockdithering$minValue.setFloat((float) Math.clamp(d.getMinVisibility(), 0.0D, 1.0D));
@@ -54,4 +60,4 @@ public class SodiumShaderInterfaceDitherMixin {
 		}
 	}
 }
-*///?}
+//?}
