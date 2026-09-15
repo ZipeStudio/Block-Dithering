@@ -22,7 +22,7 @@ public class GlDeviceMixin {
 			)
 	)
 	private String blockdithering$injectDitheringSource(ShaderSource instance, ResourceLocation id, ShaderType type, Operation<String> original) {
-		String source = instance.get(id, type);
+		String source = original.call(instance, id, type);
 		if (source == null || type != ShaderType.FRAGMENT) {
 			return source;
 		}
@@ -31,6 +31,9 @@ public class GlDeviceMixin {
 		}
 		if (DitherTargets.isSodiumTarget(id)) {
 			return SodiumDitherShaderPatcher.patchFragment(source);
+		}
+		if (DitherTargets.isOutlineTarget(id)) {
+			return DitherVanillaPatcher.patchOutlineFragment(source);
 		}
 		return source;
 	}

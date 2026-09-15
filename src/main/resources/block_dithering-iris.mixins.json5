@@ -10,7 +10,7 @@
 		//? if <26.2 {
 		"SodiumProgramsMixin",
 		//?}
-		//? if >=26.2 {
+		//? if >=1.21.11 {
 		/*"ShaderCreatorMixin",
 		*///?}
 		//? if <1.21.11 {

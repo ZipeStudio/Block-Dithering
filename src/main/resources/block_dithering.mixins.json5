@@ -14,11 +14,23 @@
     "chunk.ChunkSectionsToRenderMixin",
     "render.LevelRendererMixin",
     "chunk.SectionCompilerMixin",
+    //? if fabric && <26.1 {
+    /^"chunk.IndigoSectionCompilerMixin",
+    ^///?}
+    "render.RenderSystemMixin",
+    //? if >=26.2 {
+    /^"render.BlockOutlineMixin",
+    ^///?} else {
+    "render.RenderHitOutlineMixin",
+    //?}
     *///?} else {
     "render.ProgramMixin",
     "render.ShaderInstanceMixin",
     "render.ModelBlockRendererMixin",
     "render.HitOutlineMixin",
+    //? if fabric {
+    /*"chunk.LegacySectionCompilerMixin",
+    *///?}
     //?}
     "render.BufferBuilderMixin"
   ],

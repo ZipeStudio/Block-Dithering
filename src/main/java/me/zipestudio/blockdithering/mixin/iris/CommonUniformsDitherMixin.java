@@ -1,6 +1,7 @@
 package me.zipestudio.blockdithering.mixin.iris;
 
 import me.zipestudio.blockdithering.config.LeafyConfig;
+import me.zipestudio.blockdithering.dithering.DitheringDataBuffer;
 import me.zipestudio.blockdithering.dithering.DitheringDataConfig;
 import net.irisshaders.iris.gl.state.FogMode;
 import net.irisshaders.iris.gl.uniform.DynamicUniformHolder;
@@ -26,12 +27,14 @@ public class CommonUniformsDitherMixin {
 				(FloatSupplier) () -> (float) Math.clamp(blockdithering$options().getMinVisibility(), 0.0D, 1.0D));
 		uniforms.uniform1f(UniformUpdateFrequency.PER_FRAME, "BlockDitheringPixelSize",
 				(FloatSupplier) () -> (float) Math.max(blockdithering$options().getPixelSize(), 1.0D));
+		uniforms.uniform1f(UniformUpdateFrequency.PER_FRAME, "BlockDitheringOutlineDistance",
+				(FloatSupplier) () -> DitheringDataBuffer.outlineDistance);
+		uniforms.uniform1f(UniformUpdateFrequency.PER_FRAME, "BlockDitheringOutlineAlpha",
+				(FloatSupplier) () -> DitheringDataBuffer.outlineAlpha);
 		//? if <1.21.11 {
 		uniforms.uniform1f("BlockDitheringOutline",
 				(FloatSupplier) () -> me.zipestudio.blockdithering.dithering.DitherOutline.isActive() ? 1.0F : 0.0F,
 				me.zipestudio.blockdithering.dithering.DitherOutline.newListenerSlot()::accept);
-		uniforms.uniform1f(UniformUpdateFrequency.PER_FRAME, "BlockDitheringOutlineDistance",
-				(FloatSupplier) () -> me.zipestudio.blockdithering.dithering.DitheringDataBuffer.outlineDistance);
 		//?}
 	}
 

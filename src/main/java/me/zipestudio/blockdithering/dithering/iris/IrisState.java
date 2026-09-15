@@ -7,6 +7,16 @@ public final class IrisState {
 
 	private static final boolean IRIS_LOADED = MossyLoader.isModLoaded("iris", true);
 
+	private static volatile boolean outlineProgramPatched;
+
+	public static boolean isOutlineProgramPatched() {
+		return outlineProgramPatched;
+	}
+
+	public static void setOutlineProgramPatched(boolean patched) {
+		outlineProgramPatched = patched;
+	}
+
 	public static boolean isShaderPackInUse() {
 		return IRIS_LOADED && Holder.isShaderPackInUse();
 	}

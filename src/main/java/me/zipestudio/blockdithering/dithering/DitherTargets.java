@@ -19,6 +19,12 @@ public class DitherTargets {
 		return SODIUM_FRAGMENT.equals(fragmentShader);
 	}
 
+	public static final ResourceLocation OUTLINE_FRAGMENT = ResourceLocation.fromNamespaceAndPath("minecraft", "core/rendertype_lines");
+
+	public static boolean isOutlineTarget(ResourceLocation fragmentShader) {
+		return OUTLINE_FRAGMENT.equals(fragmentShader);
+	}
+
 	public static final Set<String> LEGACY_SHADERS = Set.of(
 			"rendertype_solid",
 			"rendertype_cutout_mipped",

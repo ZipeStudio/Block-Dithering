@@ -14,9 +14,14 @@ public class DitheringDataBuffer {
 			.putFloat()
 			.putFloat()
 			.putFloat()
+			.putFloat()
+			.putFloat()
 			.get();
 
 	public static final GpuBuffer BUFFER = RenderSystem.getDevice().createBuffer(() -> "BlockDithering DitheringData UBO", 136, SIZE);
+
+	public static volatile float outlineDistance;
+	public static volatile float outlineAlpha = 0.4F;
 
 	public static void update() {
 		DitheringDataConfig data = LeafyConfig.getInstance().getDitheringOptions();
@@ -27,6 +32,8 @@ public class DitheringDataBuffer {
 					.putFloat((float) data.getPixelSize())
 					.putFloat((float) data.getNearDistance())
 					.putFloat((float) data.getFarDistance())
+					.putFloat(outlineDistance)
+					.putFloat(outlineAlpha)
 					.get();
 			RenderSystem.getDevice().createCommandEncoder().writeToBuffer(BUFFER.slice(), byteBuffer);
 		}

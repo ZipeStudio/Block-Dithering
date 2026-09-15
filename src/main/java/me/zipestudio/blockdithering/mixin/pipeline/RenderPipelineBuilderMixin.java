@@ -39,7 +39,7 @@ public abstract class RenderPipelineBuilderMixin {
 		ResourceLocation fragment = this.fragmentShader.get();
 		//? if >=26.2 {
 		/^String name;
-		if (DitherTargets.isTarget(fragment)) {
+		if (DitherTargets.isTarget(fragment) || DitherTargets.isOutlineTarget(fragment)) {
 			name = "DitheringData";
 		} else if (DitherTargets.isSodiumTarget(fragment)) {
 			name = SodiumDitherShaderPatcher.UNIFORM_BLOCK_NAME;
@@ -52,7 +52,7 @@ public abstract class RenderPipelineBuilderMixin {
 			this.withBindGroupLayout(BindGroupLayout.builder().withUniform(name, UniformType.UNIFORM_BUFFER).build());
 		}
 		^///?} else {
-		if (!DitherTargets.isTarget(fragment)) {
+		if (!DitherTargets.isTarget(fragment) && !DitherTargets.isOutlineTarget(fragment)) {
 			return;
 		}
 		boolean already = this.uniforms.isPresent() && this.uniforms.get().stream()

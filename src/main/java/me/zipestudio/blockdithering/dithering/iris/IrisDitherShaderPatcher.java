@@ -2,6 +2,7 @@ package me.zipestudio.blockdithering.dithering.iris;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import me.zipestudio.blockdithering.dithering.DitherMarker;
 import me.zipestudio.blockdithering.dithering.DitherVanillaPatcher;
 
 public class IrisDitherShaderPatcher {
@@ -132,7 +133,18 @@ public class IrisDitherShaderPatcher {
 		}
 		""";
 
+	private static final Pattern COLOR_ATTRIBUTE = Pattern.compile("\\biris_Color\\b");
+	private static final Pattern COLOR_DECLARATION = Pattern.compile("(\\bin\\s+vec4\\s+)blockdithering_color(\\s*;)");
+
 	public static String patchOutlineFragmentShader(String source) {
+		return patchOutlineFragmentShader(source, "", "BlockDitheringOutline > 0.5");
+	}
+
+	public static String patchMarkedOutlineFragmentShader(String source) {
+		return patchOutlineFragmentShader(source, "in float blockdithering_outline;\n", "blockdithering_outline > 0.5");
+	}
+
+	private static String patchOutlineFragmentShader(String source, String extraHeader, String condition) {
 		if (source == null || source.contains(MARKER)) {
 			return source;
 		}
@@ -141,10 +153,37 @@ public class IrisDitherShaderPatcher {
 			return null;
 		}
 		return source.substring(0, main.start())
-			+ MARKER + " begin\n" + OUTLINE_BODY + MARKER + " end\n\n"
+			+ MARKER + " begin\n" + extraHeader + OUTLINE_BODY + MARKER + " end\n\n"
 			+ source.substring(main.start(), main.end())
-			+ "\n\tif (BlockDitheringOutline > 0.5) {\n\t\tblockdithering_applyOutlineDither();\n\t}\n"
+			+ "\n\tif (" + condition + ") {\n\t\tblockdithering_applyOutlineDither();\n\t}\n"
 			+ source.substring(main.end());
+	}
+
+	public static String patchMarkedOutlineVertexShader(String source) {
+		if (source == null || source.contains(MARKER)) {
+			return source;
+		}
+		String renamed = COLOR_DECLARATION.matcher(COLOR_ATTRIBUTE.matcher(source).replaceAll("blockdithering_color"))
+			.replaceFirst("$1iris_Color$2");
+		if (renamed.equals(source) || !renamed.contains("iris_Color")) {
+			return null;
+		}
+		Matcher main = MAIN_PATTERN.matcher(renamed);
+		if (!main.find()) {
+			return null;
+		}
+		String header = MARKER + " begin\n"
+			+ "uniform float BlockDitheringOutlineAlpha;\n"
+			+ "out float blockdithering_outline;\n"
+			+ "vec4 blockdithering_color;\n"
+			+ MARKER + " end\n\n";
+		String assign = "\n\tblockdithering_outline = abs(iris_Color.a * 255.0 - " + DitherMarker.OUTLINE_ALPHA + ".0) < 0.5 ? 1.0 : 0.0;\n"
+			+ "\tblockdithering_color = blockdithering_outline > 0.5 ? vec4(iris_Color.rgb, BlockDitheringOutlineAlpha) : iris_Color;\n";
+		return renamed.substring(0, main.start())
+			+ header
+			+ renamed.substring(main.start(), main.end())
+			+ assign
+			+ renamed.substring(main.end());
 	}
 
 	private IrisDitherShaderPatcher() { }
