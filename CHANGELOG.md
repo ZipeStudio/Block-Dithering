@@ -1,7 +1,6 @@
-v1.0.5:
+v1.0.6:
 ### Changes
-- Added 1.21.1 support
-- Added block outline dithering
-- Added Sable compatibility for 1.21.1
+- Updated Mossy to 3.50.0
 ### Fixes
-- Fixed Sodium uniforms on newer Sodium versions
+- Fixed blocks being dithered at any distance with Iris 1.11.4+
+- Fixed block outline dithering not working with Iris 1.11.4+

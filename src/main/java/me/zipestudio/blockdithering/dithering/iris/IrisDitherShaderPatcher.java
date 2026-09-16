@@ -27,9 +27,10 @@ public class IrisDitherShaderPatcher {
 		}
 
 		float blockdithering_cameraDistance() {
-		    vec3 ndc = vec3(gl_FragCoord.xy / vec2(viewWidth, viewHeight), gl_FragCoord.z) * 2.0 - 1.0;
-		    vec4 viewPos = gbufferProjectionInverse * vec4(ndc, 1.0);
-		    return length(viewPos.xyz / viewPos.w);
+		    float clipW = 1.0 / gl_FragCoord.w;
+		    vec2 ndc = gl_FragCoord.xy / vec2(viewWidth, viewHeight) * 2.0 - 1.0;
+		    vec2 viewXY = ndc * vec2(gbufferProjectionInverse[0][0], gbufferProjectionInverse[1][1]) * clipW;
+		    return length(vec3(viewXY, clipW));
 		}
 
 		void blockdithering_applyDistanceDither() {
@@ -163,25 +164,27 @@ public class IrisDitherShaderPatcher {
 		if (source == null || source.contains(MARKER)) {
 			return source;
 		}
-		String renamed = COLOR_DECLARATION.matcher(COLOR_ATTRIBUTE.matcher(source).replaceAll("blockdithering_color"))
-			.replaceFirst("$1iris_Color$2");
-		if (renamed.equals(source) || !renamed.contains("iris_Color")) {
+		String renamed = COLOR_ATTRIBUTE.matcher(source).replaceAll("blockdithering_color");
+		Matcher declaration = COLOR_DECLARATION.matcher(renamed);
+		if (renamed.equals(source) || !declaration.find()) {
 			return null;
 		}
+		String header = "\n" + MARKER + " begin\n"
+			+ "uniform float BlockDitheringOutlineAlpha;\n"
+			+ "out float blockdithering_outline;\n"
+			+ "vec4 blockdithering_color;\n"
+			+ MARKER + " end\n";
+		renamed = renamed.substring(0, declaration.start())
+			+ declaration.group(1) + "iris_Color" + declaration.group(2)
+			+ header
+			+ renamed.substring(declaration.end());
 		Matcher main = MAIN_PATTERN.matcher(renamed);
 		if (!main.find()) {
 			return null;
 		}
-		String header = MARKER + " begin\n"
-			+ "uniform float BlockDitheringOutlineAlpha;\n"
-			+ "out float blockdithering_outline;\n"
-			+ "vec4 blockdithering_color;\n"
-			+ MARKER + " end\n\n";
 		String assign = "\n\tblockdithering_outline = abs(iris_Color.a * 255.0 - " + DitherMarker.OUTLINE_ALPHA + ".0) < 0.5 ? 1.0 : 0.0;\n"
 			+ "\tblockdithering_color = blockdithering_outline > 0.5 ? vec4(iris_Color.rgb, BlockDitheringOutlineAlpha) : iris_Color;\n";
-		return renamed.substring(0, main.start())
-			+ header
-			+ renamed.substring(main.start(), main.end())
+		return renamed.substring(0, main.end())
 			+ assign
 			+ renamed.substring(main.end());
 	}
